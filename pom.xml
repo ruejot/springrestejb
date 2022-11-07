@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.2</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>org.jw</groupId>
+	<artifactId>springrestejb</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>spring-morder-test</name>
+	<description>morder-test convert to spring and restful</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<version.server.bom>26.1.1.Final</version.server.bom>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.wildfly.bom</groupId>
+				<artifactId>wildfly-jakartaee8-with-tools</artifactId>
+				<version>${version.server.bom}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- We depend on the EJB remote business interfaces of this application -->
+		<dependency>
+			<groupId>com.cht.morder</groupId>
+			<artifactId>morder-wildfly-server-basic</artifactId>
+			<type>ejb-client</type>
+			<version>1.0</version>
+		</dependency>
+		<!-- Include the ejb client jars -->
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-ejb-client-bom</artifactId>
+			<type>pom</type>
+			<scope>compile</scope>
+		</dependency>
+		<!-- -->
+		<dependency>
+			<groupId>com.cht.morder.downgrade</groupId>
+			<artifactId>switcher</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.webjars</groupId>
+					<artifactId>swagger-ui</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springdoc</groupId>
+					<artifactId>
+						springdoc-openapi-webflux-ui
+					</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Include MOrderSource -->
+		<dependency>
+			<groupId>com.cht.morder</groupId>
+			<artifactId>MOrderSource</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.cht.morder-import</groupId>
+					<artifactId>mm-bm-register</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+
+</project>
